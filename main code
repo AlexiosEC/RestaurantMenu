@@ -1,11 +1,14 @@
 def menu():
-
+	return menu
 def order(order):
 	return price
 def customer():
 
 def main():
+	menu=menu()
+	print(menu)
 	current_customer=input('Enter customer's name: ')
 	current_order=int(input('Enter order: ')
 	price=order(current_order)
+	
 main()
