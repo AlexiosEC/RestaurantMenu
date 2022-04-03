@@ -1,14 +1,32 @@
-def menu():
+def menu_open():
+	file=open('menu.txt','w')
+	file.write('0. Exit the Order menu'+'\n')
+	file.write('1. Chicken Strips - $3.50'+'\n')
+	file.write('2. French Fries - $2.50'+'\n')
+	file.write('3. Hamburger - $4.00'+'\n')
+	file.write('4. Hotdog - $3.50'+'\n')
+	file.write('5. Large Drink - $1.75'+'\n')
+	file.write('6. Medium Drink - $1.50'+'\n')
+	file.write('7. Milk Shake - $2.25'+'\n')
+	file.write('8. Salad - $3.75'+'\n')
+	file.write('9. Small Drink - $1.25')
+	file.close()
+	file=open('menu.txt','r')
+	menu=file.read()
+	file.close()
 	return menu
+
 def order(order):
 	return price
-def customer():
 
+def customer(current_customer):
+	return customer_info
+	
 def main():
-	menu=menu()
+	menu=menu_open()
 	print(menu)
-	current_customer=input('Enter customer's name: ')
-	current_order=int(input('Enter order: ')
+	current_customer=input('Enter customer\'s name: ')
+	current_order=int(input('Enter order: '))
 	price=order(current_order)
 	
 main()
