@@ -1,43 +1,66 @@
 def menu_open():
-	file=open('menu.txt','w')
-	file.write('0. Exit the Order menu'+'\n')
-	file.write('1. Chicken Strips - $3.50'+'\n')
-	file.write('2. French Fries - $2.50'+'\n')
-	file.write('3. Hamburger - $4.00'+'\n')
-	file.write('4. Hotdog - $3.50'+'\n')
-	file.write('5. Large Drink - $1.75'+'\n')
-	file.write('6. Medium Drink - $1.50'+'\n')
-	file.write('7. Milk Shake - $2.25'+'\n')
-	file.write('8. Salad - $3.75'+'\n')
-	file.write('9. Small Drink - $1.25')
-	file.close()
-	file=open('menu.txt','r')
-	menu=file.read()
-	file.close()
+	try:
+		file=open('menu.txt','r')
+		menu=file.read()
+		file.close()
+	except:
+		file=open('menu.txt','w')
+		file.write('0. Exit the Order menu'+'\n')
+		file.write('1. Chicken Strips - $3.50'+'\n')
+		file.write('2. French Fries - $2.50'+'\n')
+		file.write('3. Hamburger - $4.00'+'\n')
+		file.write('4. Hotdog - $3.50'+'\n')
+		file.write('5. Large Drink - $1.75'+'\n')
+		file.write('6. Medium Drink - $1.50'+'\n')
+		file.write('7. Milk Shake - $2.25'+'\n')
+		file.write('8. Salad - $3.75'+'\n')
+		file.write('9. Small Drink - $1.25')
+		file.close()
+		file=open('menu.txt','r')
+		menu=file.read()
+		file.close()
 	return menu
 
 def order(order):
 	order_prices={'1':'3.50','2':'2.50','3':'4.00','4':'3.50','5':'1.75','6':'1.50','7':'2.25','8':'3.75','9':'1.25'}
+	#Return as FLOAT number
 	return price
 
+def customer_info(n_custom_info):
+	file=open('customers.txt','a')
+	file.write(n_customer_info)
+
 def last_customer():
+	try:
+		file=open('customers.txt','r')
+		l_customer=file.read()[-1]
+		file.close()
+	except:
+		file=open('customers.txt','a')
+		file.close()
+		l_customer='This is the first customer of the day!'
 	return l_customer
 
-def new_customer(current_customer):
-	return customer_info
+def new_customer(current_customer,price):
+	file=open('customers.txt','a')
+	file.write(current_customer+' - '+str(price))
+	file.close
 	
 def main():
-	menu=menu_open()
-	l_customer=last_customer()
 	keep_going=0
 	while keep_going==0:
+		menu=menu_open()
+		l_customer=last_customer()
 		print(l_customer)
 		print(menu)
-		current_customer=input('Enter customer\'s name: ')
 		current_order=int(input('Enter order: '))
 		if current_order==0:
 			keep_going+=1
 		else:
+			current_customer=input('Enter customer\'s name: ')
 			price=order(current_order)
+			return new_customer(current_customer,price)
+			print(price)
+			n_customer=new_customer(current_customer,price)
 	
 main()
