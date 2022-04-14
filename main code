@@ -1,3 +1,23 @@
+class Menu:
+  def __init__(self,name,order):
+    self.__name=name
+    self.__order=order
+
+  def set_name(self,name):
+    self.__name=name
+  
+  def set_order(self,order):
+    self.__order=order
+
+  def get_name(self):
+    return self.__name
+
+  def get_price(self):
+    order_prices={'1':'3.50','2':'2.50','3':'4.00','4':'3.50','5':'1.75','6':'1.50','7':'2.25','8':'3.75','9':'1.25'}
+    #Use self.__order and order_prices to find price
+    price=self.__order*0  #This is temporary to see if code works without this step
+    return price
+
 def menu_open():
 	try:
 		file=open('menu.txt','r')
@@ -21,19 +41,10 @@ def menu_open():
 		file.close()
 	return menu
 
-def order(order):
-	order_prices={'1':'3.50','2':'2.50','3':'4.00','4':'3.50','5':'1.75','6':'1.50','7':'2.25','8':'3.75','9':'1.25'}
-	#Return as FLOAT number
-	return price
-
-def customer_info(n_custom_info):
-	file=open('customers.txt','a')
-	file.write(n_customer_info)
-
 def last_customer():
 	try:
 		file=open('customers.txt','r')
-		l_customer=file.read()[-1]
+		l_customer=file.readlines()[-1]
 		file.close()
 	except:
 		file=open('customers.txt','a')
@@ -41,26 +52,33 @@ def last_customer():
 		l_customer='This is the first customer of the day!'
 	return l_customer
 
-def new_customer(current_customer,price):
-	file=open('customers.txt','a')
-	file.write(current_customer+' - '+str(price))
-	file.close
-	
+def new_customer(current_order):
+  current_customer=input('Enter the customer\'s name: ')
+  m=Menu(current_customer,current_order)
+  name=m.get_name()
+  price=m.get_price()
+  price=format(price,'.2f')
+  file=open('customers.txt','a')
+  file.write(name+' - $'+price+'\n')
+  file.close()
+  return price
+
 def main():
-	keep_going=0
-	while keep_going==0:
-		menu=menu_open()
-		l_customer=last_customer()
-		print(l_customer)
-		print(menu)
-		current_order=int(input('Enter order: '))
-		if current_order==0:
-			keep_going+=1
-		else:
-			current_customer=input('Enter customer\'s name: ')
-			price=order(current_order)
-			return new_customer(current_customer,price)
-			print(price)
-			n_customer=new_customer(current_customer,price)
-	
+  keep_going=0
+  while keep_going==0:
+    menu=menu_open()
+    l_customer=last_customer()
+    if l_customer=='This is the first customer of the day!':
+      print(l_customer)
+    else:
+      print('Last Customer:',l_customer)
+    print(menu)
+    current_order=int(input('Enter order: '))
+    if current_order==0:
+      keep_going+=1
+    else:
+      current_price=new_customer(current_order)
+      print('$'+current_price)
+      print('')
+
 main()
