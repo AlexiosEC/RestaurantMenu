@@ -84,8 +84,8 @@ def main():
 			print(l_customer)
 		else:
 			print('Last Customer:',l_customer)
-			print(menu)
-			current_order=int(input('Enter order: '))
+		print(menu)
+		current_order=int(input('Enter order: '))
 		if current_order==0:
 			keep_going+=1
 		else:
